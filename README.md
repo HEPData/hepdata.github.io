@@ -1,7 +1,7 @@
-Zenodo Backup
+HEPData Backup
 =============
 
-Static backup site for Zenodo in case of maintenance and/or unexpected
+Static backup site for HEPData in case of maintenance and/or unexpected
 downtime.
 
 Install
@@ -23,7 +23,7 @@ Deployment
 
 ```console
 $ ssh <build host>
-$ cd /opt/zenodo/scripts/
+$ cd /opt/hepdata/scripts/
 $ fab backup_bootstrap
 $ fab backup_update
 $ fab backup_build
