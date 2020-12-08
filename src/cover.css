@@ -129,6 +129,12 @@ body {
   color: rgba(255,255,255,.5);
 }
 
+.mastfoot a {
+  display: inline-block;
+  vertical-align: middle;
+  width: 200px;
+}
+
 
 /*
  * Affix and center
