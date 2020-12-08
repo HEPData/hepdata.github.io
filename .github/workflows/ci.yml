@@ -13,15 +13,21 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag hepdata-backup
-    - name: Deploy
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1
+    - name: Login to DockerHub
       if: contains(github.ref, 'master') || github.event_name == 'release'
-      env:
-        CI_TAG: ${{ github.event.release.tag_name }}
-        IMAGE_NAME: hepdata-backup
-        IMAGE_NAME_REMOTE: hepdata/hepdata-backup
-        DOCKERHUB_USER: ${{ secrets.DOCKERHUB_USER }}
-        DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
-      run: |
-        bash docker_push
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.DOCKERHUB_USER }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+    - name: Build and push
+      uses: docker/build-push-action@v2
+      with:
+        context: .
+        file: ./Dockerfile
+        pull: true
+        push: contains(github.ref, 'master') || github.event_name == 'release'
+        cache-from: type=registry,ref=hepdata/hepdata-backup:latest
+        cache-to: type=inline
+        tags: hepdata/hepdata-backup:latest
