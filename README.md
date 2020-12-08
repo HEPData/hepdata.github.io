@@ -4,28 +4,15 @@ HEPData Backup
 Static backup site for HEPData in case of maintenance and/or unexpected
 downtime.
 
-Install
---------
-```console
-$ git clone https://github.com/zenodo/zenodo-backup.git
-$ cd zenodo-backup
-$ bower install
+Static files to serve are in the **src** directory.
+
+**Dockerfile** builds a Docker image which serves the site using nginx, and redirects all pages to `/index.html`.
+
+To serve the site locally, run:
+
+```
+docker build -t hepdata-backup .
+docker run -d -p 80:80 hepdata-backup
 ```
 
-Branches
---------
-* ``master`` - Default development branch.
-* ``qa`` - Quality assurance branch, deployed to our QA cluster.
-* ``production`` - Production branch, deployed to our production cluster.
-
-Deployment
-----------
-
-```console
-$ ssh <build host>
-$ cd /opt/hepdata/scripts/
-$ fab backup_bootstrap
-$ fab backup_update
-$ fab backup_build
-$ fab backup_deploy
-```
+The site should then be available at [http://localhost](http://localhost/).
