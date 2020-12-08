@@ -25,7 +25,8 @@ jobs:
       with:
         context: .
         file: ./Dockerfile
-        push: contains(github.ref, 'master') || github.event_name == 'release'
+        # push: contains(github.ref, 'master') || github.event_name == 'release'
+        push: true
         cache-from: type=registry,ref=hepdata/hepdata-backup:latest
         cache-to: type=inline
         tags: hepdata/hepdata-backup:latest
