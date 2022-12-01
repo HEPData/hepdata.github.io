@@ -1,10 +1,10 @@
 HEPData Backup
-=============
+==============
 
 Static backup site for HEPData in case of maintenance and/or unexpected
 downtime.
 
-Static files to serve are in the **src** directory.
+Static files to serve are in the **docs** directory.
 
 **Dockerfile** builds a Docker image which serves the site using nginx, and redirects all pages to `/index.html`.
 
